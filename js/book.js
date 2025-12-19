@@ -1,6 +1,7 @@
 const formUiDialog = document.querySelector('#form-ui-dialog')
 const addNewBookButton = document.querySelector('.add-btn')
 const submitBtn = document.querySelector('.submit')
+const booksContainer = document.querySelector('#books-container')
 
 
 // add new button clicks showing the form ui 
@@ -27,6 +28,19 @@ function Book(title, author, pages) {
   this.id = crypto.randomUUID()
 }
 
+// deleting Book
+Book.prototype.deleteBook = function() {
+  let currentBookId = this.id
+  // checking the id of everytime
+  for (let i = 0; i < library.length; i++) {
+    if (library[i].id == currentBookId) {
+      library.splice(i, 1) // remove the specific condition
+      i--
+      servingLibrary()
+    }
+  }
+}
+
 
 // creating new book
 function creatingBook() {
@@ -43,7 +57,7 @@ function creatingBook() {
   addBookToLibrary(book) // adding the collections array
   servingLibrary() // showing created books
 
-  resetingInputFields(title, author, pages)
+  // resetingInputFields(title, author, pages)
 }
 
 
@@ -55,9 +69,39 @@ function addBookToLibrary(newBook) {
 
 // showcasing each books
 function servingLibrary() {
+  booksContainer.innerHTML = ''
   console.log('serving books in order')
+  // creation of each cards
   for (const book of library) {
-    
+    let bookCard = document.createElement('div')
+    bookCard.dataset.bookId = book.id // added uniq id for every cards 
+    bookCard.classList.add('book-card')
+
+    // title of the book card
+    let bookTitle = document.createElement('h2')
+    bookTitle.classList.add('book-title')
+    bookTitle.textContent = book.title
+
+    // author of the book card
+    let bookAuthor = document.createElement('p')
+    bookAuthor.classList.add('book-author')
+    bookAuthor.textContent = book.author
+
+    // page of the book card
+    let bookPages = document.createElement('p')
+    bookPages.classList.add('book-pages')
+    bookPages.textContent = book.pages
+
+    // delete button
+    let deleteButton = document.createElement('button')
+    deleteButton.textContent = 'delete'
+    deleteButton.addEventListener('click', (e) => {
+      book.deleteBook()
+    })
+
+    console.log(bookCard)
+    bookCard.append(bookTitle, bookAuthor, bookPages, deleteButton)
+    booksContainer.appendChild(bookCard)
   }
 }
 
