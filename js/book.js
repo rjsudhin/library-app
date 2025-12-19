@@ -36,7 +36,7 @@ Book.prototype.deleteBook = function() {
     if (library[i].id == currentBookId) {
       library.splice(i, 1) // remove the specific condition
       i--
-      servingLibrary()
+      servingLibrary() // serving updated library
     }
   }
 }
