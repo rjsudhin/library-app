@@ -56,6 +56,9 @@ function addBookToLibrary(newBook) {
 // showcasing each books
 function servingLibrary() {
   console.log('serving books in order')
+  for (const book of library) {
+    
+  }
 }
 
 
