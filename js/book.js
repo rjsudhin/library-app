@@ -99,8 +99,23 @@ function servingLibrary() {
       book.deleteBook()
     })
 
+    // inner section for checking things
+    let innerContainer = document.createElement('div')
+    innerContainer.classList.add('inner-container')
+
+    // checking reports para
+    let checkingReportsText = document.createElement('p')
+    checkingReportsText.textContent = 'Not Readed'
+
+    // checking read Reports
+    let checkBox = document.createElement('input')
+    checkBox.type = 'checkbox'
+
+    innerContainer.append(checkingReportsText, checkBox)
+
+
     console.log(bookCard)
-    bookCard.append(bookTitle, bookAuthor, bookPages, deleteButton)
+    bookCard.append(bookTitle, bookAuthor, innerContainer, deleteButton)
     booksContainer.appendChild(bookCard)
   }
 }
