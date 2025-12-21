@@ -94,7 +94,8 @@ function servingLibrary() {
 
     // delete button
     let deleteButton = document.createElement('button')
-    deleteButton.textContent = 'delete'
+    deleteButton.classList.add('material-symbols-outlined')
+    deleteButton.textContent = 'delete_forever'
     deleteButton.addEventListener('click', (e) => {
       book.deleteBook()
     })
@@ -113,6 +114,7 @@ function servingLibrary() {
 
     innerContainer.append(checkingReportsText, checkBox)
 
+    bookCard.style.backgroundColor = gettingRandomColors()
 
     console.log(bookCard)
     bookCard.append(bookTitle, bookAuthor, innerContainer, deleteButton)
@@ -126,4 +128,10 @@ function resetingInputFields(...inputs) {
   inputs.forEach(input => {
     input.value = ''
   })
+}
+
+
+function gettingRandomColors() {
+  let random = `hsl(${Math.random() * 360}, 50%, 50%)`
+  return random
 }
