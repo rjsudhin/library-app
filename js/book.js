@@ -1,5 +1,5 @@
 const formUiDialog = document.querySelector('#form-ui-dialog')
-const addNewBookButton = document.querySelector('.add-btn')
+const addNewBookButton = document.querySelector('#add-btn')
 const submitBtn = document.querySelector('.submit')
 const booksContainer = document.querySelector('#books-container')
 
