@@ -57,7 +57,7 @@ function creatingBook() {
   addBookToLibrary(book) // adding the collections array
   servingLibrary() // showing created books
 
-  // resetingInputFields(title, author, pages)
+  resetingInputFields(title, author, pages)
 }
 
 
