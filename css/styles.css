@@ -54,6 +54,7 @@ body {
     cursor: pointer;
     box-shadow: 1px 1px 1px 1px #252525;
     border-radius: .8rem;
+    outline: none;
   }
 }
 
