@@ -127,6 +127,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    cursor: pointer;
     div {
       display: flex;
       gap: .8rem;

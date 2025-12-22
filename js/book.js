@@ -115,6 +115,7 @@ function servingLibrary() {
     innerContainer.append(checkingReportsText, checkBox)
 
     bookCard.style.backgroundColor = gettingRandomColors()
+    checkBox.style.accentColor = gettingRandomColors()
 
     console.log(bookCard)
     bookCard.append(bookTitle, bookAuthor, innerContainer, deleteButton)
