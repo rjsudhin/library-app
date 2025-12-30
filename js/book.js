@@ -6,15 +6,15 @@ const booksContainer = document.querySelector('#books-container')
 
 // add new button clicks showing the form ui 
 addNewBookButton.addEventListener('click', () => {
-  formUiDialog.showModal()
+	formUiDialog.showModal()
 })
 
 
 // submit of new book creats
 submitBtn.addEventListener('click', (e) => {
-  e.preventDefault() // don't want to submit this just fake project
-  formUiDialog.close()
-  creatingBook()
+	e.preventDefault() // don't want to submit this just fake project
+	formUiDialog.close()
+	creatingBook()
 })
 
 
@@ -22,117 +22,132 @@ const library = [] // collection of books stored here
 
 // constructor
 function Book(title, author, pages) {
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.id = crypto.randomUUID()
+	this.title = title
+	this.author = author
+	this.pages = pages
+	this.id = crypto.randomUUID()
 }
 
 // deleting Book
 Book.prototype.deleteBook = function() {
-  let currentBookId = this.id
-  // checking the id of everytime
-  for (let i = 0; i < library.length; i++) {
-    if (library[i].id == currentBookId) {
-      library.splice(i, 1) // remove the specific condition
-      i--
-      servingLibrary() // serving updated library
-    }
-  }
+	let currentBookId = this.id
+	// checking the id of everytime
+	for (let i = 0; i < library.length; i++) {
+		if (library[i].id == currentBookId) {
+			library.splice(i, 1) // remove the specific condition
+			i--
+			servingLibrary() // serving updated library
+		}
+	}
 }
 
+// reading report toggling
+Book.prototype.readingReportToggling = function(checkbox) {
+	// checking the checkox is checked or not	
+	if (checkbox.checked) {
+		console.log('checked')
+		checkbox.previousElementSibling.textContent = 'Fully readed'
+	}	else {
+		checkbox.previousElementSibling.textContent = 'Not readed'
+		console.log('not checked')
+	}
+}
 
 // creating new book
 function creatingBook() {
-  // input values from form dialog 
-  let title = document.querySelector('#title') 
-  let author = document.querySelector('#author') 
-  let pages = document.querySelector('#pages')
+	// input values from form dialog 
+	let title = document.querySelector('#title')
+	let author = document.querySelector('#author')
+	let pages = document.querySelector('#pages')
 
-  let titleInput = title.value 
-  let authorInput = author.value 
-  let pagesInput = pages.value
+	let titleInput = title.value
+	let authorInput = author.value
+	let pagesInput = pages.value
 
-  const book = new Book(titleInput, authorInput, pagesInput)
-  addBookToLibrary(book) // adding the collections array
-  servingLibrary() // showing created books
+	const book = new Book(titleInput, authorInput, pagesInput)
+	addBookToLibrary(book) // adding the collections array
+	servingLibrary() // showing created books
 
-  resetingInputFields(title, author, pages)
+	resetingInputFields(title, author, pages)
 }
 
 
 function addBookToLibrary(newBook) {
-  // take params, create a book then store it in the array
-  library.push(newBook)
+	// take params, create a book then store it in the array
+	library.push(newBook)
 }
 
 
 // showcasing each books
 function servingLibrary() {
-  booksContainer.innerHTML = ''
-  console.log('serving books in order')
-  // creation of each cards
-  for (const book of library) {
-    let bookCard = document.createElement('div')
-    bookCard.dataset.bookId = book.id // added uniq id for every cards 
-    bookCard.classList.add('book-card')
+	booksContainer.innerHTML = ''
+	console.log('serving books in order')
+	// creation of each cards
+	for (const book of library) {
+		let bookCard = document.createElement('div')
+		bookCard.dataset.bookId = book.id // added uniq id for every cards 
+		bookCard.classList.add('book-card')
 
-    // title of the book card
-    let bookTitle = document.createElement('h2')
-    bookTitle.classList.add('book-title')
-    bookTitle.textContent = book.title
+		// title of the book card
+		let bookTitle = document.createElement('h2')
+		bookTitle.classList.add('book-title')
+		bookTitle.textContent = book.title
 
-    // author of the book card
-    let bookAuthor = document.createElement('p')
-    bookAuthor.classList.add('book-author')
-    bookAuthor.textContent = book.author
+		// author of the book card
+		let bookAuthor = document.createElement('p')
+		bookAuthor.classList.add('book-author')
+		bookAuthor.textContent = book.author
 
-    // page of the book card
-    let bookPages = document.createElement('p')
-    bookPages.classList.add('book-pages')
-    bookPages.textContent = book.pages
+		// page of the book card
+		let bookPages = document.createElement('p')
+		bookPages.classList.add('book-pages')
+		bookPages.textContent = book.pages
 
-    // delete button
-    let deleteButton = document.createElement('button')
-    deleteButton.classList.add('material-symbols-outlined')
-    deleteButton.textContent = 'delete_forever'
-    deleteButton.addEventListener('click', (e) => {
-      book.deleteBook()
-    })
+		// delete button
+		let deleteButton = document.createElement('button')
+		deleteButton.classList.add('material-symbols-outlined')
+		deleteButton.textContent = 'delete_forever'
+		deleteButton.addEventListener('click', (e) => {
+			book.deleteBook()
+		})
 
-    // inner section for checking things
-    let innerContainer = document.createElement('div')
-    innerContainer.classList.add('inner-container')
+		// inner section for checking things
+		let innerContainer = document.createElement('div')
+		innerContainer.classList.add('inner-container')
 
-    // checking reports para
-    let checkingReportsText = document.createElement('p')
-    checkingReportsText.textContent = 'Not Readed'
+		// checking reports para
+		let checkingReportsText = document.createElement('p')
+		checkingReportsText.textContent = 'Not Readed'
 
-    // checking read Reports
-    let checkBox = document.createElement('input')
-    checkBox.type = 'checkbox'
+		// checking read Reports
+		let checkBox = document.createElement('input')
+		checkBox.type = 'checkbox'
+		checkBox.classList.add('reading-toggle')
+		checkBox.addEventListener('change', () => {
+			book.readingReportToggling(checkBox)
+		})
 
-    innerContainer.append(checkingReportsText, checkBox)
+		innerContainer.append(checkingReportsText, checkBox)
 
-    bookCard.style.backgroundColor = gettingRandomColors()
-    checkBox.style.accentColor = gettingRandomColors()
+		bookCard.style.backgroundColor = gettingRandomColors()
 
-    console.log(bookCard)
-    bookCard.append(bookTitle, bookAuthor, innerContainer, deleteButton)
-    booksContainer.appendChild(bookCard)
-  }
+
+		console.log(bookCard)
+		bookCard.append(bookTitle, bookAuthor, innerContainer, deleteButton)
+		booksContainer.appendChild(bookCard)
+	}
 }
 
 
 function resetingInputFields(...inputs) {
-  // reseting values to empty in each input fields
-  inputs.forEach(input => {
-    input.value = ''
-  })
+	// reseting values to empty in each input fields
+	inputs.forEach(input => {
+		input.value = ''
+	})
 }
 
 
 function gettingRandomColors() {
-  let random = `hsl(${Math.random() * 360}, 50%, 50%)`
-  return random
+	let random = `hsl(${Math.random() * 360}, 50%, 50%)`
+	return random
 }
