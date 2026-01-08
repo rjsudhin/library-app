@@ -47,7 +47,7 @@ Book.prototype.readingReportToggling = function(checkbox) {
 	if (checkbox.checked) {
 		console.log('checked')
 		checkbox.previousElementSibling.textContent = 'Fully readed'
-	}	else {
+	} else {
 		checkbox.previousElementSibling.textContent = 'Not readed'
 		console.log('not checked')
 	}
